@@ -76,7 +76,7 @@
 			<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
 				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.*?)&lt;/span&gt;</expression>
 			</RegExp>
-			<!--Get the first sentence of the plot from port.hu as an outline    (.*?\.)         [^A-Z]             [.?!][]\"')}]*\s*-->
+			<!--Get the first sentence of the plot from port.hu as an outline-->
 			<RegExp input="$$1" output="&lt;outline&gt;\1&lt;/outline&gt;" dest="5+">
 				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.*?[.?!][]\"')}]*\s[^A-Z]*)</expression>
 			</RegExp>
