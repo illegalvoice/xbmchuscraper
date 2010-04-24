@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-23" name="port.hu" content="movies" thumb="port.png" language="hu">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-24" name="port.hu" content="movies" thumb="port.png" language="hu">
 	<include>common/imdb.xml</include>
 	<include>common/tmdb.xml</include>
 	<include>common/movieposterdb.xml</include>
@@ -12,7 +12,7 @@
 			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar besorolás&quot; type=&quot;bool&quot; id=&quot;hunmpaa&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<RegExp input="$$1" output="&lt;setting label=&quot;Teljes stáblista letöltése&quot; type=&quot;bool&quot; id=&quot;TeljesStab&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Teljes stáblista letöltése&quot; type=&quot;bool&quot; id=&quot;fullcredits&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<RegExp input="$$1" output="&lt;setting label=&quot;Fanart letöltése themoviedb.org-ról&quot; type=&quot;bool&quot; id=&quot;tmdbfanart&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
@@ -56,7 +56,7 @@
 			</RegExp>
 			<!--Search results if there are multiple matches-->
 			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2 \3&lt;/title&gt;&lt;year&gt;\5&lt;/year&gt;&lt;url&gt;http://www.port.hu/pls/fi/films.film_page?i_where=2&amp;i_film_id=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
-				<expression repeat="yes" noclean="1">i_film_id=([\d]*)&amp;amp;i_city_id[^&gt;]*.([^&lt;]*)[^&gt;]*.([^&lt;]*)(.*?)(\d{4})?\) &lt;</expression>
+				<expression repeat="yes" noclean="1">i_film_id=([\d]*)&amp;amp;i_city_id=-1&amp;amp;i_county_id=-1&amp;amp;i_topic_id=2" target="_top"&gt;([^&lt;]*)[^&gt;]*.([^&lt;]*)(.*?)(\d{4})?\) &lt;</expression>
 			</RegExp>
 			<expression clear="yes" noclean="1" />
 		</RegExp>
@@ -78,7 +78,7 @@
 			</RegExp>
 			<!--Get the first sentence of the plot from port.hu as an outline-->
 			<RegExp input="$$1" output="&lt;outline&gt;\1&lt;/outline&gt;" dest="5+">
-				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.*?[.?!][]\"')}]*\s[^A-Z]*)</expression>
+				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.{180,}?)[.?!]</expression>
 			</RegExp>
 			<!--Get rating from port.hu if Hungarian rating selected in settings-->
 			<RegExp conditional="hunmpaa" input="$$1" output="&lt;mpaa&gt;\1 \2&lt;/mpaa&gt;" dest="5+">
@@ -150,27 +150,27 @@
 				<expression>"/company/[^/]*/"&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
 			<!--Get credits from IMDB-->
-			<RegExp conditional="!TeljesStab" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBCast&quot;&gt;$$12&lt;/url&gt;" dest="5+">
+			<RegExp conditional="!fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBCast&quot;&gt;$$12&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Get credits from IMDB-->
-			<RegExp conditional="!TeljesStab" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBDirectors&quot;&gt;$$12&lt;/url&gt;" dest="5+">
+			<RegExp conditional="!fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBDirectors&quot;&gt;$$12&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Get writers from IMDB-->
-			<RegExp conditional="!TeljesStab" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBWriters&quot;&gt;$$12&lt;/url&gt;" dest="5+">
+			<RegExp conditional="!fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBWriters&quot;&gt;$$12&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Get fullcredits from IMDB-->
-			<RegExp conditional="TeljesStab" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBCast&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
+			<RegExp conditional="fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBCast&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Get fullcredits from IMDB-->
-			<RegExp conditional="TeljesStab" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBDirectors&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
+			<RegExp conditional="fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBDirectors&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Get fullcredits from IMDB-->
-			<RegExp conditional="TeljesStab" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBWriters&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
+			<RegExp conditional="fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBWriters&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Call GetTMDBThumbsById-->
@@ -186,7 +186,7 @@
 				<expression />
 			</RegExp>
 			<!--Call GetIMPALink-->
-			<RegExp conditional="movieposterdbboritok" input="$$11" output="&lt;url cache=&quot;tt$$11-posters.html&quot; function=&quot;GetIMPALink&quot;&gt;$$12posters&lt;/url&gt;" dest="5+">
+			<RegExp conditional="impawardsboritok" input="$$11" output="&lt;url cache=&quot;tt$$11-posters.html&quot; function=&quot;GetIMPALink&quot;&gt;$$12posters&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<!--Call GetDTrailerLink-->
