@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-24" name="port.hu" content="movies" thumb="port.png" language="hu">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-25" name="port.hu" content="movies" thumb="port.png" language="hu">
 	<include>common/imdb.xml</include>
 	<include>common/tmdb.xml</include>
 	<include>common/movieposterdb.xml</include>
@@ -6,10 +6,19 @@
 	<include>common/dtrailer.xml</include>
 	<GetSettings dest="3">
 		<RegExp input="$$5" output="&lt;settings&gt;\1&lt;/settings&gt;" dest="3">
-			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar filmcím&quot; type=&quot;bool&quot; id=&quot;huntitle&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar filmcím&quot; type=&quot;bool&quot; id=&quot;huntitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5">
 				<expression />
 			</RegExp>
-			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar besorolás&quot; type=&quot;bool&quot; id=&quot;hunmpaa&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Eredeti filmcím&quot; type=&quot;bool&quot; id=&quot;engtitle&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
+				<expression />
+			</RegExp>
+			<RegExp input="$$1" output="&lt;setting label=&quot;Eredeti (magyar) filmím &quot; type=&quot;bool&quot; id=&quot;orighuntitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+				<expression />
+			</RegExp>
+			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar (eredeti) filmím &quot; type=&quot;bool&quot; id=&quot;hunorigtitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+				<expression />
+			</RegExp>
+			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar korhatár-besorolás&quot; type=&quot;bool&quot; id=&quot;hunmpaa&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<RegExp input="$$1" output="&lt;setting label=&quot;Teljes stáblista letöltése&quot; type=&quot;bool&quot; id=&quot;fullcredits&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
@@ -61,16 +70,16 @@
 			<expression clear="yes" noclean="1" />
 		</RegExp>
 	</GetSearchResults>
-	<GetDetails dest="3">
+	<GetDetails clearbuffers="no" dest="3">
 		<!--Create details xml with iso-8859-2 encoding-->
 		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-2&quot; standalone=&quot;yes&quot;?&gt;&lt;details&gt;\1&lt;/details&gt;" dest="3">
-			<!--Get Hungarain title from port.hu if selected in the settings-->
-			<RegExp conditional="huntitle" input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5">
+			<!--Get Hungarian Title from port.hu and store in buffer 20 for further use-->
+			<RegExp input="$$1" output="\1" dest="20">
 				<expression>&lt;span class="blackbigtitle"&gt;([^&lt;]*)</expression>
 			</RegExp>
-			<!--Get original title from port.hu if Hungarian title unchecked in the settings-->
-			<RegExp conditional="!huntitle" input="$$1" output="&lt;title&gt;\3&lt;/title&gt;" dest="5">
-				<expression>&lt;span class="blackbigtitle"&gt;([^&lt;]*)(&lt;/span&gt;\n&lt;br/&gt;&lt;span class="txt"&gt;\(([^\)]*))?</expression>
+			<!--Append Title to details.xml from buffer 20 if Hungarian title is selected in settings-->
+			<RegExp conditional="huntitle" input="$$20" output="&lt;title&gt;\1&lt;/title&gt;" dest="5">
+				<expression />
 			</RegExp>
 			<!--Get plot from port.hu-->
 			<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
@@ -121,55 +130,67 @@
 			<RegExp input="$$1" output="http://www.imdb.com/title/tt\1/" dest="12">
 				<expression>/title/tt([t0-9]*)/faq</expression>
 			</RegExp>
-			<!--Get runtime from IMDB-->
+			<!--Get runtime from imdb.com-->
 			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5">
 				<expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;[^0-9]*([^&lt;]*)</expression>
 			</RegExp>
-			<!--Get top250 from IMDB-->
+			<!--Get original title from imdb.com if Original Title selected in settings-->
+			<RegExp conditional="engtitle" input="$$1" output="&lt;title&gt;\1&lt;/title&gt;" dest="5+">
+				<expression>&lt;h1&gt;([^&lt;]*)</expression>
+			</RegExp>
+			<!--Get original title from imdb.com and Hungarian Title from Buffer 20 if orighuntitle selected in settings-->
+			<RegExp conditional="orighuntitle" input="$$1" output="&lt;title&gt;\1 ($$20)&lt;/title&gt;" dest="5+">
+				<expression>&lt;h1&gt;([^&lt;]*)</expression>
+			</RegExp>
+			<!--Get Hungarian Title from Buffer 20 and original title from imdb.com if hunorigtitle selected in settings-->
+			<RegExp conditional="hunorigtitle" input="$$1" output="&lt;title&gt;$$20 (\1)&lt;/title&gt;" dest="5+">
+				<expression>&lt;h1&gt;([^&lt;]*)</expression>
+			</RegExp>
+			<!--Get top250 from imdb.com-->
 			<RegExp input="$$1" output="&lt;top250&gt;\1&lt;/top250&gt;" dest="5+">
 				<expression>Top 250: #([0-9]*)&lt;/a&gt;</expression>
 			</RegExp>
-			<!--Get mpaa rating from IMDB if Hungarian rating unchecked in settings-->
+			<!--Get mpaa rating from imdb.com if Hungarian rating unchecked in settings-->
 			<RegExp conditional="!hunmpaa" input="$$1" output="&lt;mpaa&gt;\1&lt;/mpaa&gt;" dest="5+">
 				<expression>MPAA&lt;/a&gt;:&lt;/h5&gt;\n&lt;div class="info-content"&gt;\n(.[^&lt;]*)</expression>
 			</RegExp>
-			<!--Get tagline from IMDB-->
+			<!--Get tagline from imdb.com-->
 			<RegExp input="$$1" output="&lt;tagline&gt;\1&lt;/tagline&gt;" dest="5+">
 				<expression>&lt;h5&gt;Tagline:&lt;/h5&gt;\n&lt;div class="info-content"&gt;([^&lt;]*)</expression>
 			</RegExp>
-			<!--Get rating from IMDB-->
+			<!--Get rating from imdb.com-->
 			<RegExp input="$$1" output="&lt;rating&gt;\1&lt;/rating&gt;&lt;votes&gt;\2&lt;/votes&gt;" dest="5+">
 				<expression>&lt;b&gt;([0-9.]+)/10&lt;/b&gt;[^&lt;]*&lt;a href="ratings" class="tn15more"&gt;([0-9,]+) votes&lt;/a&gt;</expression>
 			</RegExp>
-			<!--Get genres from IMDB-->
+			<!--Get genres from imdb.com-->
 			<RegExp input="$$1" output="&lt;genre&gt;\1&lt;/genre&gt;" dest="5+">
 				<expression>"/Sections/Genres/[^/]*/"&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
-			<!--Get studio from IMDB-->
+			<!--Get studio from imdb.com-->
 			<RegExp input="$$1" output="&lt;studio&gt;\1&lt;/studio&gt;" dest="5+">
 				<expression>"/company/[^/]*/"&gt;([^&lt;]*)&lt;/a&gt;</expression>
 			</RegExp>
-			<!--Get credits from IMDB-->
+			<!--Get credits from imdb.com-->
 			<RegExp conditional="!fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBCast&quot;&gt;$$12&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<!--Get credits from IMDB-->
+			<!--Get credits from imdb.com-->
 			<RegExp conditional="!fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBDirectors&quot;&gt;$$12&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<!--Get writers from IMDB-->
+			<!--Get writers from imdb.com-->
 			<RegExp conditional="!fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-credits.html&quot; function=&quot;GetIMDBWriters&quot;&gt;$$12&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<!--Get fullcredits from IMDB-->
+			<!--Get fullcredits from imdb.com-->
 			<RegExp conditional="fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBCast&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<!--Get fullcredits from IMDB-->
+			<!--Get fullcredits from imdb.com-->
 			<RegExp conditional="fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBDirectors&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<!--Get fullcredits from IMDB-->
+			<!--Get fullcredits from imdb.com-->
 			<RegExp conditional="fullcredits" input="$$11" output="&lt;url cache=&quot;tt$$11-fullcredits.html&quot; function=&quot;GetIMDBWriters&quot;&gt;$$12fullcredits&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
