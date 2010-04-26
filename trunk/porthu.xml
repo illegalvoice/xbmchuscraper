@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-25" name="port.hu" content="movies" thumb="port.png" language="hu">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-26" name="port.hu" content="movies" thumb="port.png" language="hu">
 	<include>common/imdb.xml</include>
 	<include>common/tmdb.xml</include>
 	<include>common/movieposterdb.xml</include>
@@ -12,10 +12,10 @@
 			<RegExp input="$$1" output="&lt;setting label=&quot;Eredeti filmcím&quot; type=&quot;bool&quot; id=&quot;engtitle&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<RegExp input="$$1" output="&lt;setting label=&quot;Eredeti (magyar) filmím &quot; type=&quot;bool&quot; id=&quot;orighuntitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Eredeti filmcím (Magyar filmcím)&quot; type=&quot;bool&quot; id=&quot;orighuntitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar (eredeti) filmím &quot; type=&quot;bool&quot; id=&quot;hunorigtitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar filmcím (Eredeti filmcím)&quot; type=&quot;bool&quot; id=&quot;hunorigtitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar korhatár-besorolás&quot; type=&quot;bool&quot; id=&quot;hunmpaa&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
@@ -126,12 +126,15 @@
 			<RegExp input="$$1" output="\1" dest="11">
 				<expression>/title/tt([t0-9]*)/faq</expression>
 			</RegExp>
+			<RegExp input="$$11" output="&lt;id&gt;\1&lt;/id&gt;" dest="5">
+				<expression />
+			</RegExp>
 			<!--IMDB URL-->
 			<RegExp input="$$1" output="http://www.imdb.com/title/tt\1/" dest="12">
 				<expression>/title/tt([t0-9]*)/faq</expression>
 			</RegExp>
 			<!--Get runtime from imdb.com-->
-			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5">
+			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
 				<expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;[^0-9]*([^&lt;]*)</expression>
 			</RegExp>
 			<!--Get original title from imdb.com if Original Title selected in settings-->
