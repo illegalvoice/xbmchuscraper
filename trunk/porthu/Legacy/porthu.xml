@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-04-26" name="port.hu" content="movies" thumb="port.png" language="hu">
+﻿<?xml version="1.0" encoding="utf-8"?><scraper framework="1,1" date="2010-05-08" name="port.hu" content="movies" thumb="port.png" language="hu">
 	<include>common/imdb.xml</include>
 	<include>common/tmdb.xml</include>
 	<include>common/movieposterdb.xml</include>
 	<include>common/impa.xml</include>
-	<include>common/dtrailer.xml</include>
+	<include>common/HDTrailer.xml</include>
 	<GetSettings dest="3">
 		<RegExp input="$$5" output="&lt;settings&gt;\1&lt;/settings&gt;" dest="3">
 			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar filmcím&quot; type=&quot;bool&quot; id=&quot;huntitle&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5">
@@ -36,7 +36,10 @@
 			<RegExp input="$$1" output="&lt;setting label=&quot;Borítók letöltése MoviePosterDB-ról&quot; type=&quot;bool&quot; id=&quot;movieposterdbboritok&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<RegExp input="$$1" output="&lt;setting label=&quot;Filmelőzetes Dtrailer.com-ról&quot; type=&quot;bool&quot; id=&quot;filmelozetes&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Filmelőzetes a HD-Trailers.net-ről&quot; type=&quot;bool&quot; id=&quot;filmelozetes&quot; default=&quot;false&quot;&gt;&lt;/setting&gt;" dest="5+">
+				<expression />
+			</RegExp>
+			<RegExp input="$$1" output="&lt;setting label=&quot;HD-Trailers.net filmelőzetes felbontás&quot; type=&quot;labelenum&quot; values=&quot;480p|720p|1080p&quot; id=&quot;hdtres&quot; default=&quot;480p&quot;&gt;&lt;/setting&gt;" dest="5+">
 				<expression />
 			</RegExp>
 			<expression noclean="1" />
@@ -213,13 +216,10 @@
 			<RegExp conditional="impawardsboritok" input="$$11" output="&lt;url cache=&quot;tt$$11-posters.html&quot; function=&quot;GetIMPALink&quot;&gt;$$12posters&lt;/url&gt;" dest="5+">
 				<expression />
 			</RegExp>
-			<!--Call GetDTrailerLink-->
-			<RegExp conditional="filmelozetes" input="$$6" output="&lt;url function=&quot;GetDTrailerLink&quot;&gt;http://en.dtrailer.com/movies/search/\1&lt;/url&gt;" dest="5+">
-				<RegExp input="$$4" output="\1-" dest="6">
-					<RegExp input="$$1" output="\1" dest="4">
-						<expression trim="1" noclean="1">&lt;h1&gt;([^&lt;]*)</expression>
-					</RegExp>
-					<expression repeat="yes">([a-zA-Z0-9]+)</expression>
+			<!--Call GetHDTrailer-->
+			<RegExp conditional="filmelozetes" input="$$6" output="&lt;url function=&quot;GetHDTrailer&quot;&gt;http://www.hd-trailers.net/blog/?s=&quot;\1%28Theatrical%20Trailer%29%22&lt;/url&gt;" dest="5+">
+				<RegExp input="$$1" output="\1" dest="6">
+					<expression repeat="yes" trim="1" noclean="1" encode="1">&lt;h1&gt;([^&lt;]*)</expression>
 				</RegExp>
 				<expression />
 			</RegExp>
