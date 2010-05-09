@@ -11,4 +11,5 @@
     <setting label="30008" type="bool" id="impawardsboritok" default="false"/>
     <setting label="30009" type="bool" id="movieposterdbboritok" default="false"/>
     <setting label="30010" type="bool" id="filmelozetes" default="false"/>
+    <setting label="30011" type="labelenum" values="480p|720p|1080p" id="hdtres" default="480p"/>
 </settings>
