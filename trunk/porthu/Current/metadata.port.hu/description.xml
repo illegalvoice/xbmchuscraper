@@ -26,7 +26,7 @@ PORT.hu 는 티비 채널, 영화사, 극장, 영화 배급사에서 공식 정�
     <dependency minversion="1.0.0">metadata.common.themoviedb.org</dependency>
     <dependency minversion="1.0.0">metadata.common.movieposterdb.com</dependency>
     <dependency minversion="1.0.0">metadata.common.impa.com</dependency>
-    <dependency minversion="1.0.0">metadata.common.dtrailer.com</dependency>
+    <dependency minversion="1.0.0">metadata.common.hdtrailers.net</dependency>
   </dependencies>
   <supportedcontent>
     <content>movies</content>

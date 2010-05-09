@@ -11,5 +11,6 @@
     <string id="30007">Enable posters from themoviedb.org</string>
     <string id="30008">Enable posters from IMPAwards</string>
     <string id="30009">Enable posters from MoviePosterDB</string>
-    <string id="30010">Enable trailers from Dtrailer.com</string>
+    <string id="30010">Enable trailers from HD-Trailers.net</string>
+    <string id="30011">HD-Trailers.net Trailer Resolution</string>
 </strings>
