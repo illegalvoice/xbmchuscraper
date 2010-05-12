@@ -2,8 +2,8 @@
 <addoninfo>
   <id>metadata.common.hdtrailers.net</id>
   <type>scraper-library</type>
-  <title>HD-Trailers</title>
-  <library>HDTrailer.xml</library>
+  <title>HD-Trailers.net</title>
+  <library>HDTrailersnet.xml</library>
   <version>1.0.0</version>
   <platforms>
     <platform>all</platform>
@@ -15,7 +15,7 @@
   <summary lang="hu">HD-Trailers.net Scraper Könyvtár</summary>
   <description lang="en">Download Movie Trailers from HD-Trailers.net.</description>
   <description lang="hu">Filmelőzetesek letöltése a HD-Trailers.net-ről.</description>
-  <author>Bence Nádas (olympia)</author>
+  <author>Olympia</author>
   <supportedcontent>
     <content>movies</content>
   </supportedcontent>
