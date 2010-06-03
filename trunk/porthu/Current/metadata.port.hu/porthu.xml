@@ -23,7 +23,7 @@
 			</RegExp>
 			<!--Search results if there are multiple matches-->
 			<RegExp input="$$1" output="&lt;entity&gt;&lt;title&gt;\2 \3&lt;/title&gt;&lt;year&gt;\5&lt;/year&gt;&lt;url&gt;http://www.port.hu/pls/fi/films.film_page?i_where=2&amp;i_film_id=\1&lt;/url&gt;&lt;/entity&gt;" dest="5">
-				<expression repeat="yes" noclean="1">i_film_id=([\d]*)&amp;amp;i_city_id=-1&amp;amp;i_county_id=-1&amp;amp;i_topic_id=2" target="_top"&gt;([^&lt;]*)[^&gt;]*.([^&lt;]*)(.*?)(\d{4})?\) &lt;</expression>
+				<expression repeat="yes" noclean="1">i_film_id=([\d]*)&amp;amp;i_city_id=-1&amp;amp;i_county_id=-1&amp;amp;i_topic_id=2" target="_top"&gt;([^&lt;]*)[^&gt;]*.([^&lt;]*)?(((?!px).)*(19\d\d|20\d\d))?.*?&lt;a href="/</expression>
 			</RegExp>
 			<expression clear="yes" noclean="1" />
 		</RegExp>
