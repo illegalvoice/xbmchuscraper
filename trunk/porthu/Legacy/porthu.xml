@@ -77,7 +77,7 @@
 				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.*?)&lt;/span&gt;</expression>
 			</RegExp>
 			<!--Get the first sentence of the plot from port.hu as an outline-->
-			<RegExp input="$$1" output="&lt;outline&gt;\1&lt;/outline&gt;" dest="5+">
+			<RegExp input="$$1" output="&lt;outline&gt;\1.&lt;/outline&gt;" dest="5+">
 				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.{180,}?)[.?!]</expression>
 			</RegExp>
 			<!--Get certification from port.hu if Hungarian cerrtification is selected in settings-->
