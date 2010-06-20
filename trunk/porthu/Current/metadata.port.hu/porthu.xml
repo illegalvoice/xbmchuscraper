@@ -7,7 +7,7 @@
 	</NfoUrl>
 	<CreateSearchUrl SearchStringEncoding="iso-8859-2" dest="3">
 		<!--Movie search URL on port.hu-->
-		<RegExp input="$$1" output="http://www.port.hu/pls/ci/cinema.film_creator?i_text=\1&amp;i_film_creator=1" dest="3">
+		<RegExp input="$$1" output="&lt;url&gt;http://www.port.hu/pls/ci/cinema.film_creator?i_text=\1&amp;amp;i_film_creator=1&lt;/url&gt;" dest="3">
 			<expression clear="yes" noclean="1" />
 		</RegExp>
 	</CreateSearchUrl>
@@ -99,7 +99,7 @@
 			</RegExp>
 			<!--Get runtime from imdb.com-->
 			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
-				<expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;[^0-9]*([^&lt;]*)</expression>
+				<expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;\n&lt;div class=&quot;info-content&quot;&gt;\n([0-9]*)</expression>
 			</RegExp>
 			<!--Get original title from imdb.com and store it in buffer 18 for future use-->
 			<RegExp input="$$1" output="\1" dest="18">
@@ -107,7 +107,7 @@
 			</RegExp>
 			<!--Get original title from imdb.com and store it URL encoded in buffer 19 for getting trailer links later-->
 			<RegExp input="$$1" output="\1" dest="19">
-				<expression trim="1" encode="1">&lt;h1&gt;([^&lt;]*)</expression>
+				<expression fixchars="1" trim="1" encode="1">&lt;h1&gt;([^&lt;]*)</expression>
 			</RegExp>
 			<!--Append Original Title from Bufer 18 if labelenum = Eredeti-->
 			<RegExp input="$INFO[titlelang]" output="&lt;title&gt;$$18&lt;/title&gt;" dest="5+">
