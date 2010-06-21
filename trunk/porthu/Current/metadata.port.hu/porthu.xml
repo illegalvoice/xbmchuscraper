@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<scraper framework="1.1" date="2010-06-11">
+<scraper framework="1.1" date="2010-06-21">
 	<NfoUrl dest="3">
 		<RegExp input="$$1" output="&lt;url&gt;http://www.port.hu/pls/fi/films.film_page?i_where=2&amp;i_film_id=\1&lt;/url&gt;" dest="3">
 			<expression clear="yes" noclean="1">i_film_id=([0-9]*)</expression>
@@ -99,15 +99,11 @@
 			</RegExp>
 			<!--Get runtime from imdb.com-->
 			<RegExp input="$$1" output="&lt;runtime&gt;\1&lt;/runtime&gt;" dest="5+">
-				<expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;\n&lt;div class=&quot;info-content&quot;&gt;\n([0-9]*)</expression>
+				<expression trim="1">&lt;h5&gt;Runtime:&lt;/h5&gt;\n?&lt;div class=&quot;info-content&quot;&gt;\n?([0-9]*)</expression>
 			</RegExp>
 			<!--Get original title from imdb.com and store it in buffer 18 for future use-->
 			<RegExp input="$$1" output="\1" dest="18">
 				<expression>&lt;h1&gt;([^&lt;]*)</expression>
-			</RegExp>
-			<!--Get original title from imdb.com and store it URL encoded in buffer 19 for getting trailer links later-->
-			<RegExp input="$$1" output="\1" dest="19">
-				<expression fixchars="1" trim="1" encode="1">&lt;h1&gt;([^&lt;]*)</expression>
 			</RegExp>
 			<!--Append Original Title from Bufer 18 if labelenum = Eredeti-->
 			<RegExp input="$INFO[titlelang]" output="&lt;title&gt;$$18&lt;/title&gt;" dest="5+">
@@ -179,15 +175,15 @@
 				<expression />
 			</RegExp>
 			<!--Call Get480pTrailer if 480p selected for HD-Trailers.net-->
-			<RegExp input="$INFO[TrailerQ]" output="&lt;url function=&quot;Get480pTrailer&quot;&gt;http://www.hd-trailers.net/blog/?s=&quot;$$19%28Theatrical%20Trailer%29%22&lt;/url&gt;" dest="5+">
+			<RegExp input="$INFO[TrailerQ]" output="&lt;chain function=&quot;GetHDTrailersnet480p&quot;&gt;$$18&lt;/chain&gt;" dest="5+">
 				<expression>480p</expression>
 			</RegExp>
 			<!--Call Get720pTrailer if 720p selected for HD-Trailers.net-->
-			<RegExp input="$INFO[TrailerQ]" output="&lt;url function=&quot;Get720pTrailer&quot;&gt;http://www.hd-trailers.net/blog/?s=&quot;$$19%28Theatrical%20Trailer%29%22&lt;/url&gt;" dest="5+">
+			<RegExp input="$INFO[TrailerQ]" output="&lt;chain function=&quot;GetHDTrailersnet720p&quot;&gt;$$18&lt;/chain&gt;" dest="5+">
 				<expression>720p</expression>
 			</RegExp>
 			<!--Call Get1080pTrailer if 1080p selected for HD-Trailers.net-->
-			<RegExp input="$INFO[TrailerQ]" output="&lt;url function=&quot;Get1080pTrailer&quot;&gt;http://www.hd-trailers.net/blog/?s=&quot;$$19%28Theatrical%20Trailer%29%22&lt;/url&gt;" dest="5+">
+			<RegExp input="$INFO[TrailerQ]" output="&lt;chain function=&quot;GetHDTrailersnet1080p&quot;&gt;$$18&lt;/chain&gt;" dest="5+">
 				<expression>1080p</expression>
 			</RegExp>
 			<expression noclean="1" />
