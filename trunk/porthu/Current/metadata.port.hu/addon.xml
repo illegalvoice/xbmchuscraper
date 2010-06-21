@@ -9,7 +9,7 @@
     <import addon="metadata.common.movieposterdb.com" version="1.0"/>
     <import addon="metadata.common.imdb.com" version="1.0"/>
     <import addon="metadata.common.impa.com" version="1.0"/>
-    <import addon="metadata.common.hdtrailers.net" version="1.0"/>
+    <import addon="metadata.common.hdtrailers.net" version="1.0.1"/>
   </requires>
   <extension point="xbmc.metadata.scraper.movies"
              language="hu"
