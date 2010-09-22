@@ -87,7 +87,7 @@
 			</RegExp>
 			<!--Get certification from port.hu if Hungarian cerrtification is selected in settings-->
 			<RegExp conditional="hunmpaa" input="$$1" output="&lt;mpaa&gt;\1 \2&lt;/mpaa&gt;" dest="5+">
-				<expression>\d{4}&lt;/span&gt;&lt;/span&gt;&lt;br/&gt;&lt;span class="btxt"&gt;(\d{2})(.*?)&amp;nbsp;&lt;/span&gt;</expression>
+				<expression>&lt;img alt="\(\d{2}\)" title="(\d{2})(.*?)"</expression>
 			</RegExp>
 			<!--Get year from port.hu and store it in buffer 14 for future use-->
 			<RegExp input="$$1" output="\1" dest="14">
