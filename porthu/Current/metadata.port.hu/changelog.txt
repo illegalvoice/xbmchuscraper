@@ -1,8 +1,20 @@
+[B]1.2.2[/B]
+Changed: New search results structure for better auto-matching
+
+[B]1.2.1[/B]
+Added: Polish translations
+
+[B]1.2.0[/B]
+Changed: adapt new IMDb layout
+
+[B]1.1.0[/B]
+Fixed: originaltitle, make Hungarian the the default title language
+
 [B]1.0.9[/B]
 Fixed: year scraping
 
 [B]1.0.8[/B]
-Fixed: adopt IMDb changes
+Fixed: adapt IMDb changes
 
 [B]1.0.7[/B]
 Fixed: scraping directors from imdb when fullcast enabled
