@@ -108,7 +108,7 @@
 			<RegExp input="$$1" output="&lt;outline&gt;\1&lt;/outline&gt;&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
 				<expression trim="1">Plot:&lt;/h5&gt;\n&lt;div class=&quot;info-content&quot;&gt;\n([^\|\&lt;]*)</expression>
 			</RegExp>
-			<RegExp input="$$2" output="&lt;url function=&quot;GetIMDBPlot&quot;&gt;$$3plotsummary&lt;/url&gt;" dest="5+">
+			<RegExp input="$$2" output="&lt;url function=&quot;GetIMDBPlot&quot;&gt;http://akas.imdb.com/title/$$2/plotsummary&lt;/url&gt;" dest="5+">
 				<expression/>
 			</RegExp>
 			<RegExp conditional="!fullcredits" input="$$2" output="&lt;url cache=&quot;$$2-credits.html&quot; function=&quot;GetIMDBCast&quot;&gt;http://akas.imdb.com/title/$$2/combined&lt;/url&gt;" dest="5+">
