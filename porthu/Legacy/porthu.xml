@@ -6,7 +6,7 @@
 	<include>common/HDTrailersnet.xml</include>
 	<GetSettings dest="3">
 		<RegExp input="$$5" output="&lt;settings&gt;\1&lt;/settings&gt;" dest="3">
-			<RegExp input="$$1" output="&lt;setting label=&quot;Filmcím&quot; type=&quot;labelenum&quot; values=&quot;Magyar|Eredeti|Eredeti (Magyar)|Magyar (Eredeti)&quot; id=&quot;titlelang&quot; default=&quot;Eredeti&quot;&gt;&lt;/setting&gt;" dest="5">
+			<RegExp input="$$1" output="&lt;setting label=&quot;Filmcím&quot; type=&quot;labelenum&quot; values=&quot;Magyar|Eredeti&quot; id=&quot;titlelang&quot; default=&quot;Magyar&quot;&gt;&lt;/setting&gt;" dest="5">
 				<expression />
 			</RegExp>
 			<RegExp input="$$1" output="&lt;setting label=&quot;Magyar korhatár-besorolás&quot; type=&quot;bool&quot; id=&quot;hunmpaa&quot; default=&quot;true&quot;&gt;&lt;/setting&gt;" dest="5+">
@@ -94,7 +94,7 @@
 			</RegExp>
 			<!--Get year from port.hu and store it in buffer 14 for future use-->
 			<RegExp input="$$1" output="\1" dest="14">
-				<expression>, (19\d\d|20\d\d)\)\s&lt;/span&gt;</expression>
+				<expression>, (19\d\d|20\d\d)\s?&lt;/span&gt;</expression>
 			</RegExp>
 			<!--Append year from buffer 14-->
 			<RegExp input="$$14" output="&lt;year&gt;\1&lt;/year&gt;" dest="5+">
@@ -148,15 +148,6 @@
 			<!--Append Original Title from Bufer 18 if labelenum = Eredeti-->
 			<RegExp input="$INFO[titlelang]" output="&lt;title&gt;$$18&lt;/title&gt;" dest="5+">
 				<expression>Eredeti$</expression>
-			</RegExp>
-			<!--Append Original Title from Bufer 18 and Hungarian Title from Buffer 20 if labelenum = Eredeti (Magyar)-->
-			<RegExp input="$INFO[titlelang]" output="&lt;title&gt;$$18 ($$20)&lt;/title&gt;" dest="5+">
-				<!--Eredeti (Magyar)-->
-				<expression>Eredeti \(Magyar\)</expression>
-			</RegExp>
-			<!--Append HungarianTitle from Bufer 20 and Original Title from Buffer 18 if labelenum = Magyar (Eredeti)-->
-			<RegExp input="$INFO[titlelang]" output="&lt;title&gt;$$20 ($$18)&lt;/title&gt;" dest="5+">
-				<expression>Magyar \(Eredeti\)</expression>
 			</RegExp>
 			<!--Get top250 from imdb.com-->
 			<RegExp input="$$1" output="&lt;top250&gt;\1&lt;/top250&gt;" dest="5+">
