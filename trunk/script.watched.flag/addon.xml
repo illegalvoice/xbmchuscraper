@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.watched.flag"
+       name="Import Export Watched Flag"
+       version="1.0.1"
+       provider-name="ericwilkison">
+  <requires>
+    <import addon="xbmc.python" version="1.0"/>
+    <import addon="script.module.pysqlite" version="2.5.6"/>
+    <import addon="script.module.pil" version="1.1.7"/>
+  </requires>
+  <extension point="xbmc.python.script"
+             library="default.py" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <minversion>28764</minversion>
+    <summary lang="en">A Script for editing XBMC's built in RSS Ticker</summary>
+    <summary lang="hu">RSS forrás szerkesztő</summary> 
+    <description lang="en">A Script for editing XBMC's built in RSS Ticker</description>
+    <description lang="hu">A szkript képes szerkeszteni az XBMC beépített RSS forrás készletét</description>
+  </extension>
+</addon>

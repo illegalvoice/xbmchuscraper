@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="metadata.artists.allmusic.hu"
+       name="AllMusic.hu"
+       version="1.1.1"
+       provider-name="Team XBMC">
+  <requires>
+    <import addon="xbmc.metadata" version="1.0"/>
+    <import addon="metadata.common.last.fm" version="1.0"/>
+    <import addon="metadata.common.htbackdrops.com" version="1.0.7"/>
+  </requires>
+  <extension point="xbmc.metadata.scraper.artists"
+             language="hu"
+             library="allmusichuartists.xml"/>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en">AllMusic.hu artist information + HTBackdrops artist images</summary>
+    <summary lang="de">Scraper für Künstler-Informationen von AllMusic.hu</summary>
+    <summary lang="es">Descarga información de Artistas de AllMusic.hu</summary>
+    <summary lang="fr">Scraper d'artistes musicaux AllMusic.hu</summary>
+    <summary lang="hu">AllMusic.hu előadó információk</summary>
+    <summary lang="nl">AllMusic.hu-artiestinfo</summary>
+    <summary lang="pl">Informacje o artystach AllMusic.hu</summary>
+    <summary lang="pt">Scraper de músicas AllMusic.hu</summary>
+    <summary lang="ru">Информация об исполнителе из AllMusic.hu</summary>
+    <summary lang="zh">AllMusic.hu艺术家信息</summary>
+    <description lang="en">FOR HUNGARIAN ARTISTS ONLY! Use AllMusic.hu to fill your music library metadata information.</description>
+    <description lang="hu">CSAK MAGYAR ELŐADÓKHOZ! Az AllMusic.hu használata a médiatáradatok feltöltésére. </description>
+    <platform>all</platform>
+  </extension>
+</addon>
