@@ -13,9 +13,7 @@
   <extension point="xbmc.addon.metadata">
     <platform>all</platform>
     <minversion>28764</minversion>
-    <summary lang="en">A Script for editing XBMC's built in RSS Ticker</summary>
-    <summary lang="hu">RSS forrás szerkesztő</summary> 
-    <description lang="en">A Script for editing XBMC's built in RSS Ticker</description>
-    <description lang="hu">A szkript képes szerkeszteni az XBMC beépített RSS forrás készletét</description>
+    <summary lang="en">A Script for exporting and importing watched status</summary>
+    <description lang="en">A Script for exporting and importing watched status</description>
   </extension>
 </addon>
