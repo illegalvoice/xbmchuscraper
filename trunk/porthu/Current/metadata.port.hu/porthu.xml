@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<scraper framework="1.1" date="2011-01-06">
+<scraper framework="1.1" date="2011-04-04">
 	<NfoUrl dest="3">
 		<RegExp input="$$1" output="&lt;url&gt;http://www.port.hu/pls/fi/films.film_page?i_where=2&amp;i_film_id=\1&lt;/url&gt;" dest="3">
 			<expression clear="yes" noclean="1">i_film_id=([0-9]*)</expression>
@@ -39,6 +39,10 @@
 	<GetDetails clearbuffers="no" dest="3">
 		<!--Create details xml with iso-8859-2 encoding-->
 		<RegExp input="$$5" output="&lt;?xml version=&quot;1.0&quot; encoding=&quot;iso-8859-2&quot; standalone=&quot;yes&quot;?&gt;&lt;details&gt;\1&lt;/details&gt;" dest="3">
+			<!--Get imdb ID from port.hu-->
+			<RegExp input="$$1" output="\1" dest="9">
+				<expression clear="yes">i_param=([0-9]*)" target="top"&gt;IMDb&lt;/a&gt;&lt;/span&gt;</expression>
+			</RegExp>
 			<!--Get Hungarian Title from port.hu and store it in buffer 20 for future use-->
 			<RegExp input="$$1" output="\1" dest="20">
 				<expression>class="blackbigtitle"&gt;([^&lt;]*)</expression>
@@ -48,8 +52,14 @@
 				<expression>Magyar$</expression>
 			</RegExp>
 			<!--Get plot from port.hu-->
-			<RegExp input="$$1" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
+			<RegExp input="$$1" output="\1" dest="15">
 				<expression>&lt;div class="separator"&gt;&lt;/div&gt;\n&lt;span class="txt"&gt;(.*?)&lt;/span&gt;</expression>
+			</RegExp>
+			<RegExp input="$$15" output="&lt;chain function=&quot;GetIMDBPlotById&quot;&gt;tt$$9&lt;/chain&gt;" dest="5+">
+				<expression>^$</expression>
+			</RegExp>
+			<RegExp input="$$15" output="&lt;plot&gt;\1&lt;/plot&gt;" dest="5+">
+				<expression>(.+)</expression>
 			</RegExp>
 			<!--Get the first sentence of the plot from port.hu as an outline-->
 			<RegExp input="$$1" output="&lt;outline&gt;\1.&lt;/outline&gt;" dest="5+">
@@ -75,10 +85,6 @@
 			<RegExp input="$$10" output="\1" dest="5+">
 				<!--Create imdb URL based on the fetched imdb ID-->
 				<RegExp input="$$9" output="&lt;url cache=&quot;tt\1-main.html&quot; function=&quot;GetIMDBDetails&quot;&gt;http://akas.imdb.com/title/tt\1/&lt;/url&gt;" dest="10">
-					<!--Get imdb ID from port.hu-->
-					<RegExp input="$$1" output="\1" dest="9">
-						<expression clear="yes">i_param=([0-9]*)" target="top"&gt;IMDb&lt;/a&gt;&lt;/span&gt;</expression>
-					</RegExp>
 					<expression />
 				</RegExp>
 				<expression noclean="1" />
@@ -90,7 +96,13 @@
 		<RegExp input="$$5" output="&lt;details&gt;\1&lt;/details&gt;" dest="3">
 			<!--Get imdb ID from imdb.com and store it in Buffer 11 for future use-->
 			<RegExp input="$$1" output="\1" dest="11">
-				<expression>/title/(tt[t0-9]*)/faq</expression>
+				<expression>/title/(tt[t0-9]*)/combined</expression>
+			</RegExp>
+			<RegExp input="$$1" output="\1" dest="12">
+				<expression clear="yes">/title/([t0-9]*)/faq</expression>
+			</RegExp>
+			<RegExp input="$$12" output="\1" dest="11">
+				<expression>(.+)</expression>
 			</RegExp>
 			<!--Append imdb ID from Buffer 11-->
 			<RegExp input="$$11" output="&lt;id&gt;\1&lt;/id&gt;" dest="5">
