@@ -1,3 +1,12 @@
+[B]1.4.1[/B]
+- fixed: won't scrape imdb details and artwork for some movies
+
+[B]1.4.0[/B]
+- added: fallback to imdb plot if no plot is available on port.hu
+
+[B]1.3.6[/B]
+- fixed: actor images
+
 [B]1.3.5[/B]
 Fixed: directors (sometimes wrong director got scraped)
 
